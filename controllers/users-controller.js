@@ -50,7 +50,8 @@ const logUser = (req, res) => {
             .then(user => {
                 if(bcrypt.compareSync( req.body.password, user.password)) {
                     let username = req.body.email;
-                    let token = jwt.sign({username: username}, process.env.SECRET_KEY);
+                    let id = user.user_id;
+                    let token = jwt.sign({username: username, id: id}, process.env.SECRET_KEY);
 
                     res.json({token: token});
                 } else {
@@ -80,26 +81,30 @@ const authUser = (req, res) => {
     }
 }
 
-//authenticate middleware//
+const getUser = (req, res) => {
+    knex("users")
+    .where({ user_id: req.params.id })
+    .then((activeUser) => {
+      if (activeUser.length === 0) {
+        return res.status(404).json({ message: `User not found` });
+      }
 
-const authenticate = (req, res, next) => {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-    if (token == null) return res.status(401)
+      const userData = activeUser[0];
 
-    jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
-        if(err) return res.status(403)
-        req.user = user;
-        next();
+      res.status(200).json(userData);
     })
-}
+    .catch((error) => {
+      res.status(500).json({ message: `Unable to retrieve user details`, error});
+    });
+};
+
 
 
 
 module.exports = {
     createUser,
     logUser,
-    authenticate,
     authUser,
+    getUser,
 };
 
