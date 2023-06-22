@@ -6,4 +6,8 @@ router
     .get(appointmentController.getAppointments)
     .delete(appointmentController.deleteAppointment)
 
+router
+    .route('/')
+    .post(appointmentController.bookAppointment)
+
 module.exports = router;

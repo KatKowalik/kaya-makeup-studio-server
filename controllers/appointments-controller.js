@@ -52,12 +52,32 @@ const deleteAppointment = (req, res) => {
 }
 
 const bookAppointment = (req, res) => {
-    knex("appointments")
+    const {date, time, user_id, artist_id} = req.body;
 
+    if(!date || !time || !user_id || !artist_id){
+        return res.status(400).json({error: 'Missing one of the required properties in the form'})
+    }
+    const newAppointment = {
+        date,
+        time,
+        user_id,
+        artist_id
+    };
+
+    knex("appointments")
+        .insert(newAppointment)
+        .then(() => {
+            res.status(201).json({ message: "New appointment added successfully" });
+          })
+          .catch((error) => {
+            console.error("Error adding the appointment:", error);
+            res.status(500).json({ error: "Internal server error" });
+          });
 }
 
 
 module.exports = {
     getAppointments,
     deleteAppointment,
+    bookAppointment,
 };
