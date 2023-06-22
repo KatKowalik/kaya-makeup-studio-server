@@ -54,9 +54,14 @@ const deleteAppointment = (req, res) => {
 const bookAppointment = (req, res) => {
     const {date, time, user_id, artist_id} = req.body;
 
-    if(!date || !time || !user_id || !artist_id){
-        return res.status(400).json({error: 'Missing one of the required properties in the form'})
+    if(!date || !time || !artist_id) {
+        return res.status(400).json({ message: 'Please select all required fields.'})
     }
+
+    if(!user_id ) {
+        return res.status(401).json({ message: 'To continue accessing our services and enjoy a personalized experience, please log in or create an account. We look forward to having you as part of our community!'})
+    }
+
     const newAppointment = {
         date,
         time,
