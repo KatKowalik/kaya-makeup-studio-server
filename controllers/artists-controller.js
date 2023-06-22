@@ -10,7 +10,19 @@ const getArtists = (req, res) => {
       });
 }
 
+const getArtistAppointments = (req, res) => {
+    knex("appointments")
+        .where({artist_id: req.params.id})
+        .then ((allAppointments) => {
+            const appointmentsData = allAppointments
+            res.status(200).json(appointmentsData)
+        })
+        .catch((err) => {
+            res.status(400).send(`${err}`);
+        });
+}
 
 module.exports = {
-    getArtists
+    getArtists,
+    getArtistAppointments
 };

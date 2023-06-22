@@ -53,8 +53,9 @@ const deleteAppointment = (req, res) => {
 
 const bookAppointment = (req, res) => {
     knex("appointments")
-        
+
 }
+
 
 module.exports = {
     getAppointments,
