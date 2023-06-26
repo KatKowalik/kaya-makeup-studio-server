@@ -12,7 +12,7 @@ const createUser = async(req, res) => {
         if (!req.body.first_name || !req.body.last_name || !req.body.email || !req.body.phone_number || !req.body.password) {
             return res
               .status(400)
-              .send("Please fill in all fields");
+              .send({message: "Please fill in all fields"});
             }
         const encryptedPassword =  await bcrypt.hash(password, 10)
     
@@ -55,7 +55,7 @@ const logUser = (req, res) => {
 
                     res.json({token: token});
                 } else {
-                    res.status(403).send("Not allowed")
+                    res.status(403).send("Your password/e-mail are incorrect")
                 }    
             }) 
             .catch((error) => {
