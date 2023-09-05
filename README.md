@@ -2,12 +2,12 @@
 <br>
 Kaya Makeup Studio is a website with an appointment booking feature created for a fictional small makeup studio. The website features a secure user registration system, allowing customers to create personalized accounts. With their accounts, customers can conveniently book appointments with their preferred makeup artists and manage their bookings. The website provides an intuitive interface for browsing available time slots and selecting the desired services. Additionally, users can easily view and modify their appointments, ensuring a seamless experience. Overall, this project aims to streamline the booking process and enhance customer satisfaction for the makeup studio.
 
-
-<div align="center"> 
+<br>
+<div align="center" margin-top="1rem"> 
   <img src="./public/Screens%20-presentation.png" alt="screenshot" />
 </div>
 
-This README file includes instructions to rum both repositories:
+This README file includes instructions to run both repositories:
 - kaya-makeup-studio-client
 - kaya-makeup-studio-server
 
